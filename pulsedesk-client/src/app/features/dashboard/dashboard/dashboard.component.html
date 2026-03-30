@@ -1,0 +1,83 @@
+<!-- src/app/features/dashboard/dashboard.component.html -->
+<div class="dashboard">
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <mat-card class="stat-card">
+      <div class="stat-icon total">👥</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stats.totalUsers }}</span>
+        <span class="stat-label">Total Users</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="stat-icon active">✅</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stats.activeUsers }}</span>
+        <span class="stat-label">Active Users</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="stat-icon today">🆕</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stats.newUsersToday }}</span>
+        <span class="stat-label">New Today</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="stat-icon week">📅</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stats.newUsersThisWeek }}</span>
+        <span class="stat-label">This Week</span>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Chart + Grid row -->
+  <div class="content-grid">
+    <!-- ApexCharts — live updating chart -->
+    <mat-card class="chart-card">
+      <mat-card-content>
+        <!-- dashboard.component.html — replace the apx-chart block -->
+        <apx-chart
+          *ngIf="chartOptions.series && chartOptions.xaxis"
+          [series]="chartOptions.series!"
+          [chart]="chartOptions.chart!"
+          [xaxis]="chartOptions.xaxis!"
+          [dataLabels]="chartOptions.dataLabels!"
+          [stroke]="chartOptions.stroke!"
+          [title]="chartOptions.title!"
+        >
+        </apx-chart>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- AG Grid — live registrations feed -->
+    <mat-card class="grid-card">
+      <mat-card-header>
+        <mat-card-title>
+          Recent Registrations
+          <mat-chip-set>
+            <mat-chip color="primary" selected>
+              {{ recentRegistration.length }} new
+            </mat-chip>
+          </mat-chip-set>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ag-grid-angular
+          class="ag-theme-material"
+          style="width: 100%; height: 320px"
+          [columnDefs]="columnDefs"
+          [defaultColDef]="defaultColDef"
+          [rowData]="recentRegistration"
+          [animateRows]="true"
+          (gridReady)="onGridReady($event)"
+        >
+        </ag-grid-angular>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

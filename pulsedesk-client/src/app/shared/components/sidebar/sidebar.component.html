@@ -1,0 +1,83 @@
+<!-- src/app/shared/components/sidebar/sidebar.component.html -->
+<aside class="sidebar" [class.collapsed]="isCollapsed">
+  <!-- Logo -->
+  <div class="sidebar-logo">
+    <div class="logo-icon">📋</div>
+    <div class="logo-text" *ngIf="!isCollapsed">
+      <span class="logo-name">PulseDesk</span>
+      <span class="logo-sub">IT Management</span>
+    </div>
+    <button
+      mat-icon-button
+      class="collapse-btn"
+      (click)="toggleSidebar()"
+      [matTooltip]="isCollapsed ? 'Expand' : 'Collapse'"
+    >
+      <mat-icon>
+        {{ isCollapsed ? "chevron_right" : "chevron_left" }}
+      </mat-icon>
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Navigation -->
+  <nav class="sidebar-nav">
+    <ng-container *ngFor="let item of navItems">
+      <button
+        *ngIf="isVisible(item)"
+        class="nav-item"
+        [class.active]="isActive(item.route)"
+        (click)="navigate(item.route)"
+        [matTooltip]="isCollapsed ? item.label : ''"
+        matTooltipPosition="right"
+      >
+        <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
+
+        <span class="nav-label" *ngIf="!isCollapsed">
+          {{ item.label }}
+        </span>
+
+        <span *ngIf="item.badge && !isCollapsed" class="nav-badge">
+          {{ item.badge }}
+        </span>
+      </button>
+    </ng-container>
+  </nav>
+
+  <!-- User Profile at bottom -->
+  <div class="sidebar-footer">
+    <mat-divider></mat-divider>
+
+    <div class="user-profile" [class.collapsed]="isCollapsed">
+      <!-- Avatar -->
+      <div class="user-avatar">
+        {{ authService.currentUser?.firstName?.charAt(0) }}
+        {{ authService.currentUser?.lastName?.charAt(0) }}
+      </div>
+
+      <!-- Info — hidden when collapsed -->
+      <div class="user-info" *ngIf="!isCollapsed">
+        <span class="user-name">
+          {{ authService.currentUser?.firstName }}
+          {{ authService.currentUser?.lastName }}
+        </span>
+        <span class="user-role">
+          {{ authService.currentUser?.role }}
+        </span>
+      </div>
+
+      <!-- Logout -->
+      <button
+        mat-icon-button
+        class="logout-btn"
+        (click)="authService.logout()"
+        matTooltip="Sign out"
+        matTooltipPosition="right"
+        *ngIf="!isCollapsed"
+      >
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </div>
+</aside>

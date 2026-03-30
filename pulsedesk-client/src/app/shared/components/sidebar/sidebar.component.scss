@@ -1,0 +1,211 @@
+// src/app/shared/components/sidebar/sidebar.component.scss
+:host {
+  display: block;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.sidebar {
+  width: 240px;
+  height: 100%;
+  background: #1a237e;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  overflow: hidden;
+
+  &.collapsed {
+    width: 64px;
+
+    .collapse-btn {
+      margin-left: auto;
+    }
+  }
+}
+
+// ── Logo ──────────────────────────────────────────────────────
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  min-height: 64px;
+
+  .logo-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+    width: 32px;
+    text-align: center;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+
+    .logo-name {
+      font-size: 16px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      opacity: 0.6;
+      white-space: nowrap;
+    }
+  }
+
+  .collapse-btn {
+    color: rgba(255, 255, 255, 0.7);
+    flex-shrink: 0;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+mat-divider {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+// ── Navigation ────────────────────────────────────────────────
+.sidebar-nav {
+  flex: 1;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  &.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-weight: 600;
+
+    .nav-icon {
+      color: #90caf9;
+    }
+  }
+
+  .nav-icon {
+    flex-shrink: 0;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .nav-label {
+    font-size: 14px;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-badge {
+    background: #f44336;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+}
+
+// ── Footer ────────────────────────────────────────────────────
+.sidebar-footer {
+  padding: 8px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 8px;
+  border-radius: 10px;
+  transition: background 0.2s;
+  cursor: default;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  &.collapsed {
+    justify-content: center;
+    padding: 10px 0;
+  }
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  letter-spacing: -1px;
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+
+  .user-name {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .user-role {
+    display: block;
+    font-size: 11px;
+    opacity: 0.6;
+    white-space: nowrap;
+  }
+}
+
+.logout-btn {
+  color: rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+
+  &:hover {
+    color: #ef9a9a;
+  }
+}

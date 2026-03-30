@@ -1,0 +1,64 @@
+<div class="auth-container">
+  <mat-card class="auth-card">
+    <!-- Logo -->
+    <div class="logo-section">
+      <div class="logo-icon">📋</div>
+      <h1>PulseDesk</h1>
+      <p>IT Helpdesk & Asset Management</p>
+    </div>
+
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            formControlName="email"
+            type="email"
+            placeholder="you@company.com"
+          />
+          <mat-error *ngIf="form.get('email')?.hasError('required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="form.get('email')?.hasError('email')">
+            Invalid email format
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            type="password"
+            placeholder="Enter password"
+          />
+          <mat-error *ngIf="form.get('password')?.hasError('required')">
+            Password is required
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Error message -->
+        <div class="error-banner" *ngIf="error">
+          <span>⚠️ {{ error }}</span>
+        </div>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="full-width submit-btn"
+          [disabled]="loading"
+        >
+          <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+          <span *ngIf="!loading">Sign In</span>
+        </button>
+      </form>
+
+      <div class="register-link">
+        Don't have an account?
+        <a routerLink="/auth/register">Register</a>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

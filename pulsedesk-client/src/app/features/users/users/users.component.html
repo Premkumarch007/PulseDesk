@@ -1,0 +1,117 @@
+<!-- src/app/features/users/users.component.html -->
+<div class="users-page">
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-left">
+      <h1>User Management</h1>
+      <span class="total-badge">{{ totalCount }} users</span>
+    </div>
+  </div>
+
+  <!-- Filters Bar -->
+  <mat-card class="filters-card">
+    <div class="filters-row">
+      <!-- Search -->
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search users...</mat-label>
+        <input
+          matInput
+          [formControl]="searchControl"
+          placeholder="Name, email, department"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <!-- Role filter -->
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Role</mat-label>
+        <mat-select
+          [(ngModel)]="selectedRole"
+          (ngModelChange)="onRoleFilter($event)"
+        >
+          <mat-option value="">All Roles</mat-option>
+          <mat-option *ngFor="let r of roles.slice(1)" [value]="r">
+            {{ r }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Status filter -->
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Status</mat-label>
+        <mat-select
+          [ngModel]="showActive"
+          (ngModelChange)="onStatusFilter($event)"
+        >
+          <mat-option [value]="undefined">All</mat-option>
+          <mat-option [value]="true">Active</mat-option>
+          <mat-option [value]="false">Inactive</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Clear filters -->
+      <button mat-stroked-button class="clear-btn" (click)="clearFilters()">
+        <mat-icon>clear</mat-icon>
+        Clear
+      </button>
+    </div>
+  </mat-card>
+
+  <!-- Grid -->
+  <mat-card class="grid-card">
+    <!-- Loading overlay -->
+    <div class="loading-overlay" *ngIf="loading">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+
+    <ag-grid-angular
+      class="ag-theme-material"
+      style="width: 100%; height: 520px"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [rowData]="users"
+      [animateRows]="true"
+      [rowHeight]="56"
+      [headerHeight]="48"
+      (gridReady)="onGridReady($event)"
+    >
+    </ag-grid-angular>
+
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="totalPages > 1">
+      <span class="pagination-info">
+        Showing {{ (currentPage - 1) * pageSize + 1 }}–
+        {{ Math.min(currentPage * pageSize, totalCount) }}
+        of {{ totalCount }}
+      </span>
+
+      <div class="pagination-controls">
+        <button
+          mat-icon-button
+          [disabled]="currentPage === 1"
+          (click)="goToPage(currentPage - 1)"
+        >
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+
+        <button
+          *ngFor="let p of pages"
+          mat-mini-fab
+          [color]="p === currentPage ? 'primary' : undefined"
+          class="page-btn"
+          (click)="goToPage(p)"
+        >
+          {{ p }}
+        </button>
+
+        <button
+          mat-icon-button
+          [disabled]="currentPage === totalPages"
+          (click)="goToPage(currentPage + 1)"
+        >
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>

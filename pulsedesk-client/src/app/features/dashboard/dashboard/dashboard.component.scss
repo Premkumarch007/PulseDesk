@@ -1,0 +1,154 @@
+// src/app/features/dashboard/dashboard.component.scss
+.dashboard {
+  padding: 24px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a237e;
+    margin: 0;
+  }
+  p {
+    color: #666;
+    margin: 4px 0 0;
+  }
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  &.connected {
+    background: #e8f5e9;
+    color: #2e7d32;
+    .dot {
+      background: #4caf50;
+      animation: pulse 2s infinite;
+    }
+  }
+
+  &.disconnected {
+    background: #ffebee;
+    color: #c62828;
+    .dot {
+      background: #f44336;
+    }
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 12px;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.stat-icon {
+  font-size: 36px;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.total {
+    background: #e8eaf6;
+  }
+  &.active {
+    background: #e8f5e9;
+  }
+  &.today {
+    background: #fff3e0;
+  }
+  &.week {
+    background: #fce4ec;
+  }
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+
+  .stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a237e;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: #666;
+    margin-top: 4px;
+  }
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+// .chart-card {
+//   margin: auto;
+// }
+.chart-card,
+.grid-card {
+  border-radius: 12px;
+  mat-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.custom_first_child {
+  margin: auto;
+}

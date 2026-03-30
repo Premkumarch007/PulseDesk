@@ -1,0 +1,70 @@
+<!-- src/app/shared/components/topbar/topbar.component.html -->
+<header class="topbar">
+  <!-- Left — Page title + breadcrumb -->
+  <div class="topbar-left">
+    <h2 class="page-title">{{ pageTitle }}</h2>
+    <span class="current-time">
+      {{ currentTime | date: "EEE, MMM d · h:mm a" }}
+    </span>
+  </div>
+
+  <!-- Right — Actions -->
+  <div class="topbar-actions">
+    <!-- SignalR connection indicator -->
+    <div
+      class="connection-pill"
+      [class.connected]="isConnected"
+      [class.disconnected]="!isConnected"
+      [matTooltip]="
+        isConnected ? 'Real-time updates active' : 'Reconnecting...'
+      "
+    >
+      <span class="dot"></span>
+      <span class="label">{{ isConnected ? "Live" : "Offline" }}</span>
+    </div>
+
+    <!-- Notifications -->
+    <button
+      mat-icon-button
+      class="action-btn"
+      [matBadge]="notifCount || null"
+      matBadgeColor="warn"
+      matBadgeSize="small"
+      matTooltip="Notifications"
+      (click)="clearNotifications()"
+    >
+      <mat-icon>notifications</mat-icon>
+    </button>
+
+    <!-- User menu -->
+    <button mat-button class="user-menu-btn" [matMenuTriggerFor]="userMenu">
+      <div class="user-chip">
+        <div class="avatar">
+          {{ authService.currentUser?.firstName?.charAt(0) }}
+        </div>
+        <span class="name">
+          {{ authService.currentUser?.firstName }}
+        </span>
+        <mat-icon>expand_more</mat-icon>
+      </div>
+    </button>
+
+    <mat-menu #userMenu="matMenu" xPosition="before">
+      <div class="menu-header">
+        <strong>
+          {{ authService.currentUser?.firstName }}
+          {{ authService.currentUser?.lastName }}
+        </strong>
+        <span>{{ authService.currentUser?.email }}</span>
+        <span class="role-chip">
+          {{ authService.currentUser?.role }}
+        </span>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="authService.logout()">
+        <mat-icon>logout</mat-icon>
+        Sign out
+      </button>
+    </mat-menu>
+  </div>
+</header>
